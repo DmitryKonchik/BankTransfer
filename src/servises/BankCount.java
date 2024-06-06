@@ -1,7 +1,5 @@
 package servises;
 
-import java.util.Map;
-
 public class BankCount {
 
     private String name;
@@ -20,14 +18,6 @@ public class BankCount {
         return balance;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public void addMoney(double money) {
         balance += money;
     }
@@ -35,13 +25,7 @@ public class BankCount {
         balance -= money;
     }
     public boolean isEnoughMoneyOnBalance (double money) {
-        if (balance - money >= 0){
-            return true;
-        }
-        return false;
-    }
-    public boolean isCountExists (Map<String, Double> counts) {
-        if (counts.containsKey(name)) {
+        if (balance >= money){
             return true;
         }
         return false;
