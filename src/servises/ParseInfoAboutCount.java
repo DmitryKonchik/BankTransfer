@@ -16,10 +16,6 @@ public class ParseInfoAboutCount {
         return counts;
     }
 
-    public void setCounts(Map<String, Double> counts) {
-        this.counts = counts;
-    }
-
     public ParseInfoAboutCount() {
         parseInfoAboutCountsFromFile();
     }

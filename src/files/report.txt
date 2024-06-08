@@ -1,10 +1,45 @@
-Date: 2024-06-06T23:33:36.118787600 | File name: TransferInfo1.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.127789300 | File name: TransferInfo1.txt | Result: Invalid string value
-Date: 2024-06-06T23:33:36.128789300 | File name: TransferInfo1.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.128789300 | File name: TransferInfo1.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.128789300 | File name: TransferInfo1.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.132790 | File name: TransferInfo3.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.133791200 | File name: TransferInfo3.txt | Result: Invalid string value
-Date: 2024-06-06T23:33:36.133791200 | File name: TransferInfo3.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.133791200 | File name: TransferInfo3.txt | Result: Successful transaction
-Date: 2024-06-06T23:33:36.134790400 | File name: TransferInfo3.txt | Result: Successful transaction
+Date: 2024-06-08T14:01:25.965856900 | File name: TransferInfo1.txt | Transfer from 11111-111 t to 333-33333 | | Result: Invalid string value
+Date: 2024-06-08T14:01:25.982860900 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 55555-55555 | Result: The amount is incorrect
+Date: 2024-06-08T14:01:25.982860900 | File name: TransferInfo1.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.983860300 | File name: TransferInfo1.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.983860300 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.990862400 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.990862400 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 55555-55555 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.991863100 | File name: TransferInfo2.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.991863100 | File name: TransferInfo2.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.991863100 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.992862900 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.993862800 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 55555-55555 | Result: The amount is incorrect
+Date: 2024-06-08T14:01:25.993862800 | File name: TransferInfo3.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.993862800 | File name: TransferInfo3.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T14:01:25.993862800 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.101828700 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.113830 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 55555-55555 | Result: The amount is incorrect
+Date: 2024-06-08T14:25:31.113830 | File name: TransferInfo1.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.113830 | File name: TransferInfo1.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.114830100 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.119830900 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.119830900 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 55555-55555 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.119830900 | File name: TransferInfo2.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.120831200 | File name: TransferInfo2.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.120831200 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.120831200 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.121831400 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 55555-55555 | Result: The amount is incorrect
+Date: 2024-06-08T14:25:31.121831400 | File name: TransferInfo3.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.121831400 | File name: TransferInfo3.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T14:25:31.121831400 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.558069500 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.570070900 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 55555-55555 | Result: The amount is incorrect
+Date: 2024-06-08T17:10:41.571071 | File name: TransferInfo1.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.571071 | File name: TransferInfo1.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.571071 | File name: TransferInfo1.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.576072300 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.576072300 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 55555-55555 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.577072400 | File name: TransferInfo2.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.577072400 | File name: TransferInfo2.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.577072400 | File name: TransferInfo2.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.578072900 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.578072900 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 55555-55555 | Result: The amount is incorrect
+Date: 2024-06-08T17:10:41.578072900 | File name: TransferInfo3.txt | Transfer from 22222-22222 to 33333-33333 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.578072900 | File name: TransferInfo3.txt | Transfer from 44444-44444 to 11111-11111 | Result: Successful transaction
+Date: 2024-06-08T17:10:41.579073 | File name: TransferInfo3.txt | Transfer from 11111-11111 to 33333-33333 | Result: Successful transaction

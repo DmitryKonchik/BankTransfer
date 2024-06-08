@@ -13,6 +13,7 @@ public class CountTransfer {
     private String pathToInputFolder = "src/files/input";
     private String pathToReportFile = "src/files/report.txt";
     private String pathToArchiveFolder = "src/files/archive/";
+    private String patternToCheckTransactionLine = "from:[0-9]{5}-[0-9]{5} to:\\d{5}-\\d{5} \\| -?\\d+\\.?\\d*";
 
     private ParseInfoAboutCount parseInfoAboutCount = new ParseInfoAboutCount();
     private Map<String, Double> mapOfCounts = parseInfoAboutCount.getCounts();
@@ -38,10 +39,7 @@ public class CountTransfer {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-
-                String result = tranzaktion(line);
-                parseReport(file, result);
-
+                tranzaktion(line, file);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,13 +48,13 @@ public class CountTransfer {
     }
 
 
-    public String tranzaktion(String line) {
+    public void tranzaktion(String line, File file) {
 
         BankCount countToTransaction;
         BankCount countFromTransaction;
         String resultOfTransaction;
 
-        Pattern pattern = Pattern.compile("from:[0-9]{5}-[0-9]{5} to:\\d{5}-\\d{5} \\| \\d+\\.?\\d*");
+        Pattern pattern = Pattern.compile(patternToCheckTransactionLine);
         Matcher matcher = pattern.matcher(line);
 
         if (matcher.find()) {
@@ -72,6 +70,7 @@ public class CountTransfer {
                         resultOfTransaction = "Successful transaction";
                         parseCountToMap(countFromTransaction);
                         parseCountToMap(countToTransaction);
+
                     } else {
                         resultOfTransaction = "Not enough money";
                     }
@@ -84,7 +83,7 @@ public class CountTransfer {
         } else {
             resultOfTransaction = "Invalid string value";
         }
-        return resultOfTransaction;
+        parseReport(file, resultOfTransaction, line.substring(5, 16), line.substring(20, 31));
     }
 
     public boolean isCountExist(String count) {
@@ -119,14 +118,14 @@ public class CountTransfer {
         }
     }
 
-    public void parseReport(File file, String resultOfTransaction) {
+    public void parseReport(File file, String resultOfTransaction, String countNameFrom, String countNameTo) {
         try (FileWriter report = new FileWriter(pathToReportFile, true)) {
-            report.write("Date: " + LocalDateTime.now() + " | File name: " + file.getName() + " | Result: " + resultOfTransaction + "\n");
+            report.write("Date: " + LocalDateTime.now() + " | File name: " + file.getName() + " | Transfer from " +
+                    countNameFrom + " to " + countNameTo + " | Result: " + resultOfTransaction + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    //метод для записи в файл отчета
 
 
 }
