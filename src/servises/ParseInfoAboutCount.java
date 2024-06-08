@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class ParseInfoAboutCount {
 
-    private Map<String, Double> counts = new HashMap<>();
+    private Map<String, Double> counts = new TreeMap<>();
     private final String pathToFile = "src/files/CountsInfo.txt";
 
     public Map<String, Double> getCounts() {

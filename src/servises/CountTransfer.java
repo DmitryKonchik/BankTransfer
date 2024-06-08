@@ -31,6 +31,7 @@ public class CountTransfer {
                     moveFileToArchive(file);
                 }
             }
+            System.out.println("All transaction successful");
         }
         parseInfoAboutCount.parseInfoAboutCountsToFile();
     }

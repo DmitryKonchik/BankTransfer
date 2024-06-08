@@ -21,11 +21,13 @@ public class BankCount {
     public void addMoney(double money) {
         balance += money;
     }
+
     public void withdrawMoney(double money) {
         balance -= money;
     }
-    public boolean isEnoughMoneyOnBalance (double money) {
-        if (balance >= money){
+
+    public boolean isEnoughMoneyOnBalance(double money) {
+        if (balance >= money) {
             return true;
         }
         return false;

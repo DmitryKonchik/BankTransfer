@@ -14,20 +14,21 @@ public class ReadReportFile {
     Scanner scanner = new Scanner(System.in);
 
     public void printReportFile() {
-        try(BufferedReader br = new BufferedReader(new FileReader(pathToReportFile))){
+        try (BufferedReader br = new BufferedReader(new FileReader(pathToReportFile))) {
             String s;
             while ((s = br.readLine()) != null) {
                 System.out.println(s);
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT FILE with report");
         }
     }
+
     public void printReportFileByDate() {
         Pattern pattern = Pattern.compile("Date: \\d{4}-\\d{2}-\\d{2}");
 
-        try(BufferedReader br = new BufferedReader(new FileReader(pathToReportFile))){
+        try (BufferedReader br = new BufferedReader(new FileReader(pathToReportFile))) {
             String line;
 
             System.out.println("Enter date start format yyyy-MM-dd");
@@ -41,8 +42,8 @@ public class ReadReportFile {
                 Matcher matcher = pattern.matcher(line);
                 if (matcher.find()) {
                     String date = matcher.group();
-                    LocalDate dateReport = LocalDate.of(Integer.parseInt(date.substring(6,10)),Integer.parseInt(date.substring(11,13)),Integer.parseInt(date.substring(14,16)));
-                    if (dateReport.isAfter(dateReportFrom) || dateReport.isEqual(dateReportFrom) && dateReport.isBefore(dateReportTo)|| dateReport.isEqual(dateReportTo)) {
+                    LocalDate dateReport = LocalDate.of(Integer.parseInt(date.substring(6, 10)), Integer.parseInt(date.substring(11, 13)), Integer.parseInt(date.substring(14, 16)));
+                    if (dateReport.isAfter(dateReportFrom) || dateReport.isEqual(dateReportFrom) && dateReport.isBefore(dateReportTo) || dateReport.isEqual(dateReportTo)) {
                         System.out.println(line);
                         count++;
                     }
@@ -51,7 +52,7 @@ public class ReadReportFile {
             if (count == 0) {
                 System.out.println("No matches");
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT FILE with report");
         }
