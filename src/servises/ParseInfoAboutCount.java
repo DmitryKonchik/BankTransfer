@@ -17,10 +17,12 @@ public class ParseInfoAboutCount {
     }
 
     public ParseInfoAboutCount() {
+        // Конструктор вызывает метод для моздания МАРы
         parseInfoAboutCountsFromFile();
     }
 
     public void parseInfoAboutCountsFromFile() {
+        // Метод для создания МАРы из файла счетов
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String s;
             while ((s = br.readLine()) != null) {
@@ -29,11 +31,11 @@ public class ParseInfoAboutCount {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("NOT FILE with counts info");
-
         }
     }
 
     public void parseInfoAboutCountsToFile() {
+        // Запись информации в файл счетов после транзакций
         try (FileWriter fw = new FileWriter(pathToFile)) {
             for (Map.Entry e : counts.entrySet()) {
                 fw.write(e.getKey() + " | " + e.getValue() + "\n");
@@ -43,6 +45,4 @@ public class ParseInfoAboutCount {
             System.out.println("NOT FILE with counts info");
         }
     }
-
-
 }

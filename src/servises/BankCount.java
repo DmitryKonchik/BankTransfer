@@ -19,14 +19,17 @@ public class BankCount {
     }
 
     public void addMoney(double money) {
+        //прибавляет деньги на счет
         balance += money;
     }
 
     public void withdrawMoney(double money) {
+        // отнимет деньги со счета
         balance -= money;
     }
 
     public boolean isEnoughMoneyOnBalance(double money) {
+        // проверка достаточно ли денег на счету для перевода
         if (balance >= money) {
             return true;
         }

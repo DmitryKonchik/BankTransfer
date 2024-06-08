@@ -20,13 +20,14 @@ public class CountTransfer {
 
 
     public void parseTransactionFiles() {
+        // метод смотрит есть ли в папке транзакций файлы подходящие для проведения транзакций и через цикл обрабатывает все файлы
         File inputFolder = new File(pathToInputFolder);
         File[] files = inputFolder.listFiles();
-        if (files != null) {
+        if (files != null) { // проверяем есть ли подходящие файлы
             for (File file : files) {
                 if (file.isFile() && file.getName().endsWith(".txt")) {
                     readAndTransaction(file);
-                    moveFileToArchive(file);
+                    moveFileToArchive(file); // перемещаем файл транзакиии в архив
                 } else {
                     moveFileToArchive(file);
                 }
@@ -37,10 +38,11 @@ public class CountTransfer {
     }
 
     private void readAndTransaction(File file) {
+        //Производим транзакцию считывая с отдельного файла данные
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                tranzaktion(line, file);
+                transaction(line, file);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,26 +51,29 @@ public class CountTransfer {
     }
 
 
-    public void tranzaktion(String line, File file) {
+    public void transaction(String line, File file) {
+        // метод для транзакии
 
-        BankCount countToTransaction;
-        BankCount countFromTransaction;
-        String resultOfTransaction;
+        BankCount countToTransaction; // Счет С которого переводим
+        BankCount countFromTransaction; // Счет НА который переводим
+        String resultOfTransaction; // результат транзакции
 
         Pattern pattern = Pattern.compile(patternToCheckTransactionLine);
         Matcher matcher = pattern.matcher(line);
 
-        if (matcher.find()) {
+        if (matcher.find()) { // проверка на правильность введенной строки в файле транзакции
             line = matcher.group();
             if (isCountExist(line.substring(5, 16)) && isCountExist(line.substring(20, 31))) {
-                countFromTransaction = findCount(line.substring(5, 16));
-                countToTransaction = findCount(line.substring(20, 31));
-                double money = Double.parseDouble(line.substring(34));
-                if (money > 0) {
-                    if (countFromTransaction.isEnoughMoneyOnBalance(money)) {
-                        countToTransaction.addMoney(money);
-                        countFromTransaction.withdrawMoney(money);
+                //Проверка существуют ли такие счета
+                countFromTransaction = findCount(line.substring(5, 16));// создаем счет с которого переводят деньги
+                countToTransaction = findCount(line.substring(20, 31));// создаем счет на который переводят деньги
+                double money = Double.parseDouble(line.substring(34)); // из фала транзакции присваиваем переменной значение переводимых денег
+                if (money > 0) { // проверка положительная ли сумма для перевода
+                    if (countFromTransaction.isEnoughMoneyOnBalance(money)) {// проверем остаточно ли денег на счете С которого переводим деньги
+                        countToTransaction.addMoney(money); // добавление денег на счет
+                        countFromTransaction.withdrawMoney(money); // отнимае деньги со счета
                         resultOfTransaction = "Successful transaction";
+                        // записываем данные в МАПу после транзакции
                         parseCountToMap(countFromTransaction);
                         parseCountToMap(countToTransaction);
 
@@ -84,10 +89,12 @@ public class CountTransfer {
         } else {
             resultOfTransaction = "Invalid string value";
         }
+        // запись в файл отчет после транзакции
         parseReport(file, resultOfTransaction, line.substring(5, 16), line.substring(20, 31));
     }
 
     public boolean isCountExist(String count) {
+        //Проверяем существет ли такой счет в файле который определяет название и остаток счетов
         boolean res = false;
         for (Map.Entry e : mapOfCounts.entrySet()) {
             if (e.getKey().equals(count)) {
@@ -98,6 +105,7 @@ public class CountTransfer {
     }
 
     public BankCount findCount(String count) {
+        //Опоеделяет класс счета из файла счетов для дальнейшей работы со счетом
         for (Map.Entry e : mapOfCounts.entrySet()) {
             if (e.getKey().equals(count)) {
                 return new BankCount((String) e.getKey(), (Double) e.getValue());
@@ -107,10 +115,12 @@ public class CountTransfer {
     }
 
     public void parseCountToMap(BankCount count) {
+        //Преобразуем классс аккаунта банка в мап для передачи в файл
         mapOfCounts.put(count.getName(), count.getBalance());
     }
 
-    public void moveFileToArchive(File file) {  //метод для перемещения файла в архив
+    public void moveFileToArchive(File file) {
+        //метод для перемещения файла в архив
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss.SSS");
         try {
             Files.move(Paths.get(file.getPath()), Paths.get(pathToArchiveFolder + LocalDateTime.now().format(formatter) + file.getName()));
@@ -120,6 +130,7 @@ public class CountTransfer {
     }
 
     public void parseReport(File file, String resultOfTransaction, String countNameFrom, String countNameTo) {
+        //записчь в файл отчет об транзакции
         try (FileWriter report = new FileWriter(pathToReportFile, true)) {
             report.write("Date: " + LocalDateTime.now() + " | File name: " + file.getName() + " | Transfer from " +
                     countNameFrom + " to " + countNameTo + " | Result: " + resultOfTransaction + "\n");
@@ -127,6 +138,4 @@ public class CountTransfer {
             e.printStackTrace();
         }
     }
-
-
 }
