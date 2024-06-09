@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,7 +54,7 @@ public class CountTransfer {
 
 
     public void transaction(String line, File file) {
-        // метод для транзакии
+        // метод для транзакции
 
         BankCount countToTransaction; // Счет С которого переводим
         BankCount countFromTransaction; // Счет НА который переводим
@@ -69,14 +71,13 @@ public class CountTransfer {
                 countToTransaction = findCount(line.substring(20, 31));// создаем счет на который переводят деньги
                 double money = Double.parseDouble(line.substring(34)); // из фала транзакции присваиваем переменной значение переводимых денег
                 if (money > 0) { // проверка положительная ли сумма для перевода
-                    if (countFromTransaction.isEnoughMoneyOnBalance(money)) {// проверем остаточно ли денег на счете С которого переводим деньги
+                    if (countFromTransaction.isEnoughMoneyOnBalance(money)) {// проверяем достаточно ли денег на счете С которого переводим деньги
                         countToTransaction.addMoney(money); // добавление денег на счет
-                        countFromTransaction.withdrawMoney(money); // отнимае деньги со счета
+                        countFromTransaction.withdrawMoney(money); // отнимаем деньги со счета
                         resultOfTransaction = "Successful transaction";
                         // записываем данные в МАПу после транзакции
                         parseCountToMap(countFromTransaction);
                         parseCountToMap(countToTransaction);
-
                     } else {
                         resultOfTransaction = "Not enough money";
                     }
@@ -87,10 +88,11 @@ public class CountTransfer {
                 resultOfTransaction = "No such account exists";
             }
         } else {
-            resultOfTransaction = "Invalid string value";
+            resultOfTransaction = "Invalid transaction string";
         }
         // запись в файл отчет после транзакции
-        parseReport(file, resultOfTransaction, line.substring(5, 16), line.substring(20, 31));
+
+        parseReport(file, resultOfTransaction, line);
     }
 
     public boolean isCountExist(String count) {
@@ -129,13 +131,30 @@ public class CountTransfer {
         }
     }
 
-    public void parseReport(File file, String resultOfTransaction, String countNameFrom, String countNameTo) {
-        //записчь в файл отчет об транзакции
+    public void parseReport(File file, String resultOfTransaction, String line) {
+        //запись в файл отчет об транзакции
+
+        List<String> listCountName = findAllCounts(line);
+
+        //Если нет двух совпадений, для того чтобы не выпадала ошибка добавляются два пустых значения в конец
+        listCountName.add(null);
+        listCountName.add(null);
+
         try (FileWriter report = new FileWriter(pathToReportFile, true)) {
             report.write("Date: " + LocalDateTime.now() + " | File name: " + file.getName() + " | Transfer from " +
-                    countNameFrom + " to " + countNameTo + " | Result: " + resultOfTransaction + "\n");
+                    listCountName.get(0) + " to " + listCountName.get(1) + " | Result: " + resultOfTransaction + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<String> findAllCounts(String line) {
+        Pattern pattern = Pattern.compile("\\d+-\\d+");
+        Matcher matcher = pattern.matcher(line);
+        List<String> listCountName = new ArrayList<>();
+        while (matcher.find()) {
+            listCountName.add(matcher.group());
+        }
+        return listCountName;
     }
 }
