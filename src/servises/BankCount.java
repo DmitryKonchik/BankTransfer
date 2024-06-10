@@ -30,10 +30,7 @@ public class BankCount {
 
     public boolean isEnoughMoneyOnBalance(double money) {
         // проверка достаточно ли денег на счету для перевода
-        if (balance >= money) {
-            return true;
-        }
-        return false;
+        return balance >= money;
     }
 
 }

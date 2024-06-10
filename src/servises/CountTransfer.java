@@ -12,10 +12,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CountTransfer {
-    private String pathToInputFolder = "src/files/input";
-    private String pathToReportFile = "src/files/report.txt";
-    private String pathToArchiveFolder = "src/files/archive/";
-    private String patternToCheckTransactionLine = "from:[0-9]{5}-[0-9]{5} to:\\d{5}-\\d{5} \\| -?\\d+\\.?\\d*";
+    private static final String PATH_TO_INPUT_FOLDER = "src/files/input";
+    private static final String PATH_TO_REPORT_FILE = "src/files/report.txt";
+    private static final String PATH_TO_ARCHIVE_FOLDER = "src/files/archive/";
+    private static final String PATTERN_TO_CHECK_TRANSACTION_LINE = "from:[0-9]{5}-[0-9]{5} to:\\d{5}-\\d{5} \\| -?\\d+\\.?\\d*";
 
     private ParseInfoAboutCount parseInfoAboutCount = new ParseInfoAboutCount();
     private Map<String, Double> mapOfCounts = parseInfoAboutCount.getCounts();
@@ -23,7 +23,7 @@ public class CountTransfer {
 
     public void parseTransactionFiles() {
         // метод смотрит есть ли в папке транзакций файлы подходящие для проведения транзакций и через цикл обрабатывает все файлы
-        File inputFolder = new File(pathToInputFolder);
+        File inputFolder = new File(PATH_TO_INPUT_FOLDER);
         File[] files = inputFolder.listFiles();
         if (files != null) { // проверяем есть ли подходящие файлы
             for (File file : files) {
@@ -56,11 +56,11 @@ public class CountTransfer {
     public void transaction(String line, File file) {
         // метод для транзакции
 
-        BankCount countToTransaction; // Счет С которого переводим
-        BankCount countFromTransaction; // Счет НА который переводим
+        BankCount countToTransaction; // Счет НА который переводим
+        BankCount countFromTransaction; // Счет С котого переводим
         String resultOfTransaction; // результат транзакции
 
-        Pattern pattern = Pattern.compile(patternToCheckTransactionLine);
+        Pattern pattern = Pattern.compile(PATTERN_TO_CHECK_TRANSACTION_LINE);
         Matcher matcher = pattern.matcher(line);
 
         if (matcher.find()) { // проверка на правильность введенной строки в файле транзакции
@@ -70,7 +70,7 @@ public class CountTransfer {
                 countFromTransaction = findCount(line.substring(5, 16));// создаем счет с которого переводят деньги
                 countToTransaction = findCount(line.substring(20, 31));// создаем счет на который переводят деньги
                 double money = Double.parseDouble(line.substring(34)); // из фала транзакции присваиваем переменной значение переводимых денег
-                if (money > 0) { // проверка положительная ли сумма для перевода
+                if (money > 0.0) { // проверка положительная ли сумма для перевода
                     if (countFromTransaction.isEnoughMoneyOnBalance(money)) {// проверяем достаточно ли денег на счете С которого переводим деньги
                         countToTransaction.addMoney(money); // добавление денег на счет
                         countFromTransaction.withdrawMoney(money); // отнимаем деньги со счета
@@ -97,13 +97,8 @@ public class CountTransfer {
 
     public boolean isCountExist(String count) {
         //Проверяем существет ли такой счет в файле который определяет название и остаток счетов
-        boolean res = false;
-        for (Map.Entry e : mapOfCounts.entrySet()) {
-            if (e.getKey().equals(count)) {
-                res = true;
-            }
-        }
-        return res;
+
+        return mapOfCounts.containsKey(count);
     }
 
     public BankCount findCount(String count) {
@@ -125,7 +120,7 @@ public class CountTransfer {
         //метод для перемещения файла в архив
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss.SSS");
         try {
-            Files.move(Paths.get(file.getPath()), Paths.get(pathToArchiveFolder + LocalDateTime.now().format(formatter) + file.getName()));
+            Files.move(Paths.get(file.getPath()), Paths.get(PATH_TO_ARCHIVE_FOLDER + LocalDateTime.now().format(formatter) + file.getName()));
         } catch (IOException e) {
             System.out.println("Exception while moving file: " + e.getMessage());
         }
@@ -140,7 +135,7 @@ public class CountTransfer {
         listCountName.add(null);
         listCountName.add(null);
 
-        try (FileWriter report = new FileWriter(pathToReportFile, true)) {
+        try (FileWriter report = new FileWriter(PATH_TO_REPORT_FILE, true)) {
             report.write("Date: " + LocalDateTime.now() + " | File name: " + file.getName() + " | Transfer from " +
                     listCountName.get(0) + " to " + listCountName.get(1) + " | Result: " + resultOfTransaction + "\n");
         } catch (IOException e) {
