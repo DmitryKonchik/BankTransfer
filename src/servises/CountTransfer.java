@@ -1,6 +1,10 @@
 package servises;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -19,7 +23,6 @@ public class CountTransfer {
 
     private ParseInfoAboutCount parseInfoAboutCount = new ParseInfoAboutCount();
     private Map<String, Double> mapOfCounts = parseInfoAboutCount.getCounts();
-
 
     public void parseTransactionFiles() {
         // метод смотрит есть ли в папке транзакций файлы подходящие для проведения транзакций и через цикл обрабатывает все файлы
@@ -51,7 +54,6 @@ public class CountTransfer {
             System.out.println("NOT FILE with transaction");
         }
     }
-
 
     public void transaction(String line, File file) {
         // метод для транзакции
@@ -91,28 +93,27 @@ public class CountTransfer {
             resultOfTransaction = "Invalid transaction string";
         }
         // запись в файл отчет после транзакции
-
         parseReport(file, resultOfTransaction, line);
     }
 
     public boolean isCountExist(String count) {
         //Проверяем существет ли такой счет в файле который определяет название и остаток счетов
-
         return mapOfCounts.containsKey(count);
     }
 
     public BankCount findCount(String count) {
         //Опоеделяет класс счета из файла счетов для дальнейшей работы со счетом
+        BankCount newBankCount = null;
         for (Map.Entry e : mapOfCounts.entrySet()) {
             if (e.getKey().equals(count)) {
-                return new BankCount((String) e.getKey(), (Double) e.getValue());
+                newBankCount = new BankCount((String) e.getKey(), (Double) e.getValue());
             }
         }
-        return null;
+        return newBankCount;
     }
 
     public void parseCountToMap(BankCount count) {
-        //Преобразуем классс аккаунта банка в мап для передачи в файл
+        //Преобразуем классс аккаунта банка в МАП для передачи в файл
         mapOfCounts.put(count.getName(), count.getBalance());
     }
 
