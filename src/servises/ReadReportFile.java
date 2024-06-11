@@ -14,7 +14,7 @@ public class ReadReportFile {
     Scanner scanner = new Scanner(System.in);
 
     public void printReportFile() {
-        // вывод из файла отчета всех записей
+        // outputting all records from the report file
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_TO_REPORT_FILE))) {
             String s;
             while ((s = br.readLine()) != null) {
@@ -27,7 +27,7 @@ public class ReadReportFile {
     }
 
     public void printReportFileByDate() {
-        // вывод из файла отчета по дате
+        // output from report file by date
         Pattern pattern = Pattern.compile("Date: \\d{4}-\\d{2}-\\d{2}");
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_TO_REPORT_FILE))) {
@@ -63,7 +63,7 @@ public class ReadReportFile {
     }
 
     private String checkDate(String str) {
-        //проверка даты введенной в консоли
+        // checking the date entered the console
         Pattern patternConsoleDate = Pattern.compile("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$");
         Matcher matcher = patternConsoleDate.matcher(str);
         if (!matcher.find()) {

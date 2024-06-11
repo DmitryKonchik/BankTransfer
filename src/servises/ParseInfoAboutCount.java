@@ -17,12 +17,12 @@ public class ParseInfoAboutCount {
     }
 
     public ParseInfoAboutCount() {
-        // Конструктор вызывает метод для моздания МАРы
+        // The constructor calls a method to create a MAP
         parseInfoAboutCountsFromFile();
     }
 
     public void parseInfoAboutCountsFromFile() {
-        // Метод для создания МАРы из файла счетов
+        // Method for creating MARA from an invoice file
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String s;
             while ((s = br.readLine()) != null) {
@@ -35,7 +35,7 @@ public class ParseInfoAboutCount {
     }
 
     public void parseInfoAboutCountsToFile() {
-        // Запись информации в файл счетов после транзакций
+        // Recording information in the invoice file after transactions
         try (FileWriter fw = new FileWriter(pathToFile)) {
             for (Map.Entry e : counts.entrySet()) {
                 fw.write(e.getKey() + " | " + e.getValue() + "\n");
